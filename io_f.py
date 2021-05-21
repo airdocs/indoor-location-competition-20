@@ -15,7 +15,7 @@ class ReadData:
     wifi: np.ndarray
     ibeacon: np.ndarray
     waypoint: np.ndarray
-
+    comments: np.ndarray
 
 def read_data_file(data_filename):
     acce = []
@@ -28,13 +28,18 @@ def read_data_file(data_filename):
     wifi = []
     ibeacon = []
     waypoint = []
+    comments = []
 
     with open(data_filename, 'r', encoding='utf-8') as file:
         lines = file.readlines()
 
     for line_data in lines:
         line_data = line_data.strip()
-        if not line_data or line_data[0] == '#':
+        if line_data[0] == '#':
+            line_data = line_data[1:].split()
+            comments.extend(line_data)
+            continue
+        if not line_data:
             continue
 
         line_data = line_data.split('\t')
@@ -101,4 +106,4 @@ def read_data_file(data_filename):
     ibeacon = np.array(ibeacon)
     waypoint = np.array(waypoint)
 
-    return ReadData(acce, acce_uncali, gyro, gyro_uncali, magn, magn_uncali, ahrs, wifi, ibeacon, waypoint)
+    return ReadData(acce, acce_uncali, gyro, gyro_uncali, magn, magn_uncali, ahrs, wifi, ibeacon, waypoint, comments)

@@ -170,7 +170,8 @@ if __name__ == "__main__":
     width_meter = floor_info["map_info"]["width"]
     height_meter = floor_info["map_info"]["height"]
 
-    path_filenames = list(Path(path_data_dir).resolve().glob("*.txt")) # [0:3]
+    path_filenames = list(Path(path_data_dir).resolve().glob("5dd9e7d69191710006b57073.txt")) 
+    #path_filenames = list(Path(path_data_dir).resolve().glob("*.txt")) #[0:5]
 
     # 1. visualize ground truth positions
     """

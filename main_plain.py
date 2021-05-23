@@ -167,7 +167,8 @@ if __name__ == "__main__":
     width_meter = floor_info["map_info"]["width"]
     height_meter = floor_info["map_info"]["height"]
 
-    path_filenames = list(Path(path_data_dir).resolve().glob("*.txt")) # [0:1]
+    path_filenames = list(Path(path_data_dir).resolve().glob("5dd9e7d69191710006b57073.txt")) 
+#    path_filenames = list(Path(path_data_dir).resolve().glob("*.txt")) # [0:1]
 
     # 1. visualize ground truth positions
     """
@@ -240,6 +241,11 @@ if __name__ == "__main__":
             else:
                 ble[p[1]] = {}
                 ble[p[1]]['rssi'] = [int(p[2])]
+        #delete collections with empty wifi
+    cols_with_wifi = []    
+    for c in collections.copy().keys():
+        if len(collections[c]["fingerprints"][0]["wifi"].keys()) == 0:
+            del collections[c]
     with open(os.path.basename(floor_data_dir)+'.pla.json', "w+") as outfile:           
         json.dump(collections, outfile, indent = 4)
         outfile.close()
